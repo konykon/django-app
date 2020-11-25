@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Book List</h1>
+  {% if consumption_list %}
+  <table class="table">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Quantity</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    {% for consumption in consumption_list %}
+      <tr>
+        <td>{{ consumption.id }}</td>
+        <td>{{ consumption.product }}</td>
+        <td>{{ consumption.quantity }}</td>
+        <td><a role="button" href="{% url 'consumption_update' %}">Edit</a></td>
+        <td><a role="button">Delete</a></td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}       
+{% endblock %}
