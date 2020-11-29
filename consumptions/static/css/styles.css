@@ -31,8 +31,48 @@ body {
     text-decoration: none;
 }
 
-.btn-create{
-    float: right;
-    margin: 20px;
+
+/* consumptions */
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-create{ 
+    margin: 20px 0;
     color: #fff !important;
+}
+
+.filter label {
+    display: none;
+}
+
+.filter select {
+    padding: 2px;
+}
+
+/* upload product categories csv */
+.file-div{
+    padding: 1rem;
+}
+
+.file-div label{
+    font-weight: 700;
+}
+
+.file-div input{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.messages li {
+    list-style: none;
+    padding: 1rem;
+    color: slategray;
 }
