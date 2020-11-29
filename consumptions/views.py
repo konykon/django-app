@@ -7,9 +7,9 @@ from django.urls import reverse_lazy, reverse
 from rest_framework import generics
 from consumptions.serializers import ConsumptionSerializer
 from django.http import HttpResponseRedirect
-from consumptions.forms import ProductsForm
-import logging
-from itertools import islice
+from consumptions.filters import ConsumptionFilter
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -41,18 +41,20 @@ class ConsumptionDeleteApi(generics.DestroyAPIView):
 # UI crud
 
 
-class ConsumptionListView(generic.ListView):
-    model = Consumption
-    paginate_by = 10
-    context_object_name = 'consumption_list'
-    template_name = 'consumption_list.html'
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+# class ConsumptionListView(generic.ListView):
+#     model = Consumption
+#     paginate_by = 10
+#     context_object_name = 'consumptions'
+#     template_name = 'consumptions.html'
+#     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
-    def get_queryset(self):
-        return Consumption.objects.filter(product__category__code__icontains='LL')
+#     def get_queryset(self):
+#         # return Consumption.objects.order_by('timestamp')
+#         return Consumption.objects.filter(product__category__code__icontains='LL')
 
-    def filter_by_product_category(self):
-        return Consumption.objects.filter(product__category__code__icontains='LL')
+def filter_by_product_category(request):
+    f = ConsumptionFilter(request.GET, queryset=Consumption.objects.all())
+    return render(request, 'consumptions.html', {'filter': f})
 
 
 class ConsumptionCreate(CreateView):
@@ -76,7 +78,11 @@ class ConsumptionDelete(DeleteView):
 
 
 def upload_product_categories_csv(request):
-    product_fields = Product._meta.local_fields
+    db_codes = {}
+    p_list = Product_Category.objects.all().values_list('code')
+    for i in range(0, len(p_list)):
+        db_codes[p_list[i][0]] = p_list[i][0]
+
     if "POST" == request.method:
         csv_file = request.FILES["csv_file"]
         file_data = csv_file.read().decode("utf-8")
@@ -86,5 +92,7 @@ def upload_product_categories_csv(request):
             if len(fields) == 2:
                 code = fields[0]
                 name = fields[1]
-                p_c = Product_Category(code=code, name=name).save()
+                if fields[0] not in db_codes:
+                    p_c = Product_Category(code=code, name=name).save()
+        messages.success(request, 'Form submission successful')
     return render(request, "upload_product_categories_csv.html") 
