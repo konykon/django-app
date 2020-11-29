@@ -11,4 +11,5 @@ urlpatterns = [
     path('consumption/create/', consumptions.views.ConsumptionCreate.as_view(), name='consumption_create'),
     path('consumption/<int:pk>/update/', consumptions.views.ConsumptionUpdate.as_view(), name='consumption_update'),
     path('consumption/<int:pk>/delete/', consumptions.views.ConsumptionDelete.as_view(), name='consumption_delete'),
+    path('upload/product-categories-csv/', consumptions.views.upload_product_categories_csv, name='upload_product_categories_csv'),
 ] 
