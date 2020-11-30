@@ -41,17 +41,6 @@ class ConsumptionDeleteApi(generics.DestroyAPIView):
 # UI crud
 
 
-# class ConsumptionListView(generic.ListView):
-#     model = Consumption
-#     paginate_by = 10
-#     context_object_name = 'consumptions'
-#     template_name = 'consumptions.html'
-#     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-
-#     def get_queryset(self):
-#         # return Consumption.objects.order_by('timestamp')
-#         return Consumption.objects.filter(product__category__code__icontains='LL')
-
 def filter_by_product_category(request):
     f = ConsumptionFilter(request.GET, queryset=Consumption.objects.all())
     return render(request, 'consumptions.html', {'filter': f})
