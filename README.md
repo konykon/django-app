@@ -20,5 +20,5 @@ To access the API Client visit:
 
 * http://127.0.0.1:8000/api/, to view consumptions list 
 * http://127.0.0.1:8000/api/create/, to create a new consumption
-* http://127.0.0.1:8000/api/<int:pk>/update/, to update a consumption
-* http://127.0.0.1:8000/api/<int:pk>/delete/, to delete a consumption  
+* http://127.0.0.1:8000/api/int:pk/update/, to update a consumption
+* http://127.0.0.1:8000/api/int:pk/delete/, to delete a consumption  
