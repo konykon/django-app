@@ -2,7 +2,7 @@
 
 A Django web application that allows managing telecom service consumptions.  
 
-The user can import csv files of products and product categories.  
+The user can import csv files of products and product categories. Sample csv files are included in the repository.  
 Consumptions are available as a list filtered by the product categories and new ones can be created, edited or deleted.  
 
 The Consumptions resource is also accessible through a REST API endpoint.  
