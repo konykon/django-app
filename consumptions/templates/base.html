@@ -17,9 +17,10 @@
       <div class="col-sm-2">
         {% block sidebar %}
         <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'consumptions' %}">Consumptions</a></li>
-          <li><a href="{% url 'upload_product_categories_csv' %}">Upload Product Categories Resourses</a></li>
+          <li><a href="{% url 'consumptions:index' %}">Home</a></li>
+          <li><a href="{% url 'consumptions:consumption_list' %}">Consumptions</a></li>
+          <li><a href="{% url 'consumptions:upload_csv' %}">Upload Product Categories Resourses</a></li>
+          <li><a href="{% url 'consumptions:upload_product_csv' %}">Upload Product Resourses</a></li>
         </ul>
         {% endblock %}
       </div>
