@@ -1,0 +1,78 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 20px;
+    font-family: sans-serif;
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    padding: 1rem;
+    margin-bottom: .5rem;
+    text-align: center;
+    background-color: #343a40;
+}
+
+.sidebar-nav li:hover {
+    background-color: #000;
+}
+
+.sidebar-nav a {
+    color: #fff !important;
+    text-decoration: none;
+}
+
+
+/* consumptions */
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-create{ 
+    margin: 20px 0;
+    color: #fff !important;
+}
+
+.filter label {
+    display: none;
+}
+
+.filter select {
+    padding: 2px;
+}
+
+/* upload product categories csv */
+.file-div{
+    padding: 1rem;
+}
+
+.file-div label{
+    font-weight: 700;
+}
+
+.file-div input{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.messages li {
+    list-style: none;
+    padding: 1rem;
+    color: slategray;
+}
