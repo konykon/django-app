@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="{% url 'upload_product_categories_csv' %}" method="POST" enctype="multipart/form-data">
+<form action="{% url 'consumptions:upload_csv' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <h3>Upload Product Categories CSV</h3>
     <div class="file-div">
@@ -22,4 +22,6 @@
     {% endfor %}
 </ul>
 {% endif %}
+
+
 {% endblock %}
