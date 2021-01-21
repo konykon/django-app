@@ -1,0 +1,15 @@
+[flake8]
+exclude = 
+    consumptions/migrations,
+    consumptions/__pycache__,
+    consumptions/static,
+    djangoApp/__pycache__,
+    djangoApp/asgi.py,
+    djangoApp/settings.py,
+    djangoApp/wsgi.py,
+    htmlcov,
+    myenv,
+    sample-csv-files,
+    static,
+    .coverage,
+    manage.py
