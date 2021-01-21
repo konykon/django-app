@@ -2,36 +2,7 @@ from django.test import TestCase
 
 from consumptions.models import Consumption, Product_Category, Product
 
-import factory
-from datetime import datetime
-
-
-class Product_Category_Factory(factory.Factory):
-    class Meta:
-        model = Product_Category
-
-    code = 'LL'
-    name = 'Landline'
-
-
-class Product_Factory(factory.Factory):
-    class Meta:
-        model = Product
-
-    code = 'LL001'
-    name = 'ADSL'
-    category = factory.SubFactory(Product_Category_Factory)
-
-
-class Consumption_Factory(factory.Factory):
-    class Meta:
-        model = Consumption
-
-    timestamp = factory.LazyFunction(datetime.now)
-    product = factory.SubFactory(Product_Factory)
-    quantity = 10
-
-class Product_Category_ModelTest(TestCase):
+class Product_CategoryModelTest(TestCase):
     def setUp(self):
         self.prod_cat = Product_Category.objects.create(code='LL', name='landline')
         self.prod = Product.objects.create(code='LL001', name='ADSL', category=self.prod_cat)
@@ -64,3 +35,4 @@ class Consumption_ModelTest(TestCase):
     def test_product_is_instance(self):
         """Test consumption is created"""
         self.assertTrue(isinstance(Consumption_Factory(), Consumption))
+
