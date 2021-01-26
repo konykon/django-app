@@ -27,14 +27,6 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'consumption_form.html')
 
-    def test_consumption_create_post(self):
-        response = self.client.post(reverse('consumption_create'), {
-            'product': 'LL001', 
-            'quantity': 10
-        })
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(self.prod.code, 'LL001')
-
 
     def test_consumption_delete_delete(self):
         response = self.client.delete(reverse('consumption_delete', kwargs={'pk': self.cons.pk}))
