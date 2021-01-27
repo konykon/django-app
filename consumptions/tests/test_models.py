@@ -8,13 +8,24 @@ class Product_CategoryModelTest(TestCase):
         self.prod = Product.objects.create(code='LL001', name='ADSL', category=self.prod_cat)
         self.cons = Consumption.objects.create(product=self.prod, quantity=10)
 
-    def test_product_category_code_max_length(self):
-        product_category = Product_Category.objects.get(id=1)
-        max_length = product_category._meta.get_field('code').max_length
-        self.assertEqual(max_length, 200)
+    def test_product_category_name_string_name(self):
+        self.assertEqual(str(self.prod_cat.name), 'landline')
 
     def test_product_category_name_string_code(self):
         self.assertEqual(str(self.prod_cat), 'LL')
 
     def test_product_category_name_string_name(self):
         self.assertEqual(str(self.prod_cat.name), 'landline')
+  
+    def test_product_string(self):
+        """Test product name and code are strings"""
+        self.assertEqual(self.prod.code, 'LL001')
+        self.assertEqual(self.prod.name, 'ADSL')
+
+    def test_product_is_instance(self):
+        """Tests product is created"""
+        self.assertTrue(isinstance(self.prod, Product))
+
+    def test_product_is_instance(self):
+        """Test consumption is created"""
+        self.assertTrue(isinstance(self.cons, Consumption))

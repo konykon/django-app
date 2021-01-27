@@ -1,15 +1,20 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
 import consumptions.views
 
+
+router = routers.DefaultRouter()
+router.register('consumptions-api', consumptions.views.ConsumptionViewSet, )
+
+app_name = 'consumptions'
+
 urlpatterns = [
-    path('', consumptions.views.index, name='index'),
-    path('api/', consumptions.views.ConsumptionApi.as_view(), name='api'),
-    path('api/create/', consumptions.views.ConsumptionCreateApi.as_view(), name='api_create'),
-    path('api/<int:pk>/update/', consumptions.views.ConsumptionUpdateApi.as_view(), name='api_update'),
-    path('api/<int:pk>/delete/', consumptions.views.ConsumptionDeleteApi.as_view(), name='api_delete'),
-    path('consumptions/', consumptions.views.filter_by_product_category, name='consumptions'),
+    path('', include(router.urls)),
+    path('home/', consumptions.views.Index.as_view(), name='index'),
+    path('consumption-list/', consumptions.views.ConsumptionList.as_view(), name='consumption_list'),
     path('consumption/create/', consumptions.views.ConsumptionCreate.as_view(), name='consumption_create'),
     path('consumption/<int:pk>/update/', consumptions.views.ConsumptionUpdate.as_view(), name='consumption_update'),
     path('consumption/<int:pk>/delete/', consumptions.views.ConsumptionDelete.as_view(), name='consumption_delete'),
-    path('upload/product-categories-csv/', consumptions.views.upload_product_categories_csv, name='upload_product_categories_csv'),
-] 
+    path('upload/product-categories-csv/', consumptions.views.upload_csv, name='upload_csv'),
+    path('upload/product-csv/', consumptions.views.upload_product_csv, name='upload_product_csv'),
+]

@@ -5,28 +5,20 @@ from consumptions.views import *
 class TestUrls(SimpleTestCase):
 
     def test_index_url_is_resolved(self):
-        url = reverse('index')
-        self.assertEquals(resolve(url).func, index)
-
-    def test_api_list_url_is_resolved(self):
-        url = reverse('api')
-        self.assertEquals(resolve(url).func.view_class, ConsumptionApi)
-
-    def test_api_create_url_is_resolved(self):
-        url = reverse('api_create')
-        self.assertEquals(resolve(url).func.view_class, ConsumptionCreateApi)
+        url = reverse('consumptions:index')
+        self.assertEquals(resolve(url).func.view_class, Index)
 
     def test_list_url_is_resolved(self):
-        url = reverse('consumptions')
-        self.assertEquals(resolve(url).func, filter_by_product_category)
+        url = reverse('consumptions:consumption_list')
+        self.assertEquals(resolve(url).func.view_class, ConsumptionList)
 
     def test_create_url_is_resolved(self):
-        url = reverse('consumption_create')
+        url = reverse('consumptions:consumption_create')
         self.assertEquals(resolve(url).func.view_class, ConsumptionCreate)
 
     def test_upload_csv_url_is_resolved(self):
-        url = reverse('upload_product_categories_csv')
-        self.assertEquals(resolve(url).func, upload_product_categories_csv)
+        url = reverse('consumptions:upload_product_csv')
+        self.assertEquals(resolve(url).func, upload_product_csv)
 
     
 class TestUrlsWithArgs(TestCase):
@@ -36,18 +28,6 @@ class TestUrlsWithArgs(TestCase):
         self.prod = Product.objects.create(code='LL001', name='ADSL', category=self.prod_cat)
         self.cons = Consumption.objects.create(product=self.prod, quantity='10')
 
-    def test_update_url_is_resolved(self):
-        url = reverse('api_update', kwargs={'pk': 1})
-        self.assertEquals(resolve(url).func.view_class, ConsumptionUpdateApi)
-
-    def test_update_api_url_is_resolved(self):
-        url = reverse('api_delete', kwargs={'pk': 1})
-        self.assertEquals(resolve(url).func.view_class, ConsumptionDeleteApi)
-
-    def test_delete_api_url_is_resolved(self):
-        url = reverse('consumption_update', kwargs={'pk': 1})
-        self.assertEquals(resolve(url).func.view_class, ConsumptionUpdate)
-
     def test_delete_url_is_resolved(self):
-        url = reverse('consumption_delete', kwargs={'pk': 1})
+        url = reverse('consumptions:consumption_delete', kwargs={'pk': 1})
         self.assertEquals(resolve(url).func.view_class, ConsumptionDelete)
