@@ -30,6 +30,3 @@ class TestViews(TestCase):
     def test_consumption_delete_delete(self):
         response = self.client.delete(reverse('consumptions:consumption_delete', kwargs={'pk': self.cons.pk}))
         self.assertEquals(response.status_code, 302)
-
-
-
