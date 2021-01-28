@@ -1,32 +1,33 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
-from consumptions.models import *
-import json
+
+from rest_framework import status
+from rest_framework.test import APIClient
+
 
 class TestViews(TestCase):
 
     def setUp(self):
-        self.client = Client()
-        self.prod_cat = Product_Category.objects.create(code='LL', name='landline')
-        self.prod = Product.objects.create(code='LL001', name='ADSL', category=self.prod_cat)
-        self.cons = Consumption.objects.create(product=self.prod, quantity=10)
+        self.client = APIClient()
 
     def test_index_get(self):
-        response = self.client.get(reverse('consumptions:index'))
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
+        """Test retrieving the home page"""
+        res = self.client.get(reverse('consumptions:index'))
+        self.assertEquals(res.status_code, status.HTTP_200_OK)
+        self.assertTemplateUsed(res, 'index.html')
 
     def test_consumption_table_get(self):
-        response = self.client.get(reverse('consumptions:consumption_list'))
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'consumption_list.html')
+        """Test retrieving a consumptions list"""
+        res = self.client.get(reverse(
+            'consumptions:consumption_list')
+        )
+        self.assertEquals(res.status_code, status.HTTP_200_OK)
+        self.assertTemplateUsed(res, 'consumption_list.html')
 
     def test_consumption_create_get(self):
-        response = self.client.get(reverse('consumptions:consumption_create'))
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'consumption_form.html')
-
-
-    def test_consumption_delete_delete(self):
-        response = self.client.delete(reverse('consumptions:consumption_delete', kwargs={'pk': self.cons.pk}))
-        self.assertEquals(response.status_code, 302)
+        """Test retrieving the create view"""
+        res = self.client.get(reverse(
+            'consumptions:consumption_create')
+        )
+        self.assertEquals(res.status_code, status.HTTP_200_OK)
+        self.assertTemplateUsed(res, 'consumption_form.html')
