@@ -7,9 +7,8 @@ from consumptions.filters import ConsumptionFilter
 from rest_framework import viewsets
 
 from django.views import View
-from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django_filters.views import FilterView
 
@@ -33,7 +32,7 @@ class ConsumptionList(FilterView):
     context_object_name = 'consumptions'
     template_name = 'consumption_list.html'
     filterset_class = ConsumptionFilter
-    
+
 
 class ConsumptionCreate(CreateView):
     model = Consumption
@@ -76,9 +75,9 @@ def upload_csv(request):
                     code = fields[0]
                     name = fields[1]
                     if code not in db_codes:
-                        p_c = Product_Category(code=code, name=name).save()
+                        Product_Category(code=code, name=name).save()
             messages.success(request, 'Form submission successful')
-    return render(request, "upload_csv.html") 
+    return render(request, "upload_csv.html")
 
 
 def upload_product_csv(request):
@@ -104,6 +103,6 @@ def upload_product_csv(request):
                     category = Product_Category.objects.get(code=category)
                     # if category not in Product_Category.objects.all():
                     if fields[0] not in db_codes:
-                        p = Product(code=code, name=name, category=category).save()
+                        Product(code=code, name=name, category=category).save()
             messages.success(request, 'Form submission successful')
-    return render(request, "upload_product_csv.html") 
+    return render(request, "upload_product_csv.html")
