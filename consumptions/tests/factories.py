@@ -24,7 +24,6 @@ class Consumption_Factory(factory.Factory):
     class Meta:
         model = Consumption
 
-    id = factory.Sequence(lambda n: n)
     timestamp = factory.LazyFunction(datetime.now)
     product = factory.SubFactory(Product_Factory)
     quantity = 10
