@@ -16,13 +16,13 @@ class Product_Category(models.Model):
 class Product(models.Model):
     code = models.CharField(max_length=200, unique=True)
     name = models.CharField(max_length=200)
-    category = models.ForeignKey(Product_Category, to_field='code', on_delete=models.CASCADE)
+    category = models.ForeignKey(Product_Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.code
 
 class Consumption(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
-    product = models.ForeignKey(Product, to_field='code', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
 
