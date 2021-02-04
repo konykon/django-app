@@ -1,12 +1,11 @@
-from django.test import TestCase
+from django.test import TransactionTestCase
 from django.db.utils import IntegrityError
 from datetime import datetime
 from consumptions.models import Consumption, Product_Category, Product
 from .factories import Consumption_Factory, Product_Category_Factory, Product_Factory
 
 
-class Product_CategoryModelTest(TestCase):
-
+class Product_CategoryModelTest(TransactionTestCase):
     def setUp(self):
         self.product_category = Product_Category_Factory()
         self.product = Product_Factory()
@@ -41,16 +40,14 @@ class Product_CategoryModelTest(TestCase):
 
     def test_duplicate_product_categories_are_invalid(self):
         """Test product category is unique"""
-        Product_Category.objects.create(code='AA', name='adsl')
+        prod_cat = Product_Category(code='AA', name='adsl')
+        prod_cat.save()
         self.assertRaises(IntegrityError, Product_Category.objects.create, code='AA', name='adsl')
 
     def test_duplicate_products_are_invalid(self):
         """Test product is unique"""
-        p_c = Product_Category.objects.create(code='AA', name='adsl')
-        Product.objects.create(code='AA', name='aproduct', category=p_c)
-        self.assertRaises(IntegrityError, Product.objects.create, code='AA', name='aproduct', category=p_c)
-
-    def test_why_this_test_pass(self):
-        """I didn't create a product outside of assertRaises. Factory boy saves instances?"""
-        prod_cat = Product_Category_Factory().save()
-        self.assertRaises(IntegrityError, Product.objects.create, code='AA', name='aproduct', category=prod_cat)
+        prod_cat = Product_Category(code='AA', name='adsl')
+        prod_cat.save()
+        prod = Product(code='AA00', name='aproduct', category=prod_cat)
+        prod.save()
+        self.assertRaises(IntegrityError, Product.objects.create, code='AA00', name='aproduct', category=prod_cat)
