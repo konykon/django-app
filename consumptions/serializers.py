@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from consumptions.models import Consumption, Product, Product_Category
+from consumptions.models import Consumption
 
 
 class ConsumptionSerializer(serializers.ModelSerializer):

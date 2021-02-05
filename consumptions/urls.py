@@ -4,7 +4,7 @@ import consumptions.views
 
 
 router = routers.DefaultRouter()
-router.register('consumptions-api', consumptions.views.ConsumptionViewSet, )
+router.register('consumptions-api', consumptions.views.ConsumptionViewSet)
 
 app_name = 'consumptions'
 
